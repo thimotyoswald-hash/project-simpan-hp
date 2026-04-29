@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPEN HP - Laporan Siswa</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">◆</div>
+            <div>
+                <div class="sidebar-title">SIMPEN HP</div>
+                <div class="sidebar-subtitle">Manajemen Peminjaman</div>
+            </div>
+        </div>
+
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index-dark.html" class="nav-link">◈ Dashboard</a></li>
+                <li class="nav-item"><a href="peminjaman-dark.html" class="nav-link">⊕ Peminjaman</a></li>
+                <li class="nav-item"><a href="daftar-dipinjam-dark.html" class="nav-link">◉ HP Dipinjam</a></li>
+                <li class="nav-item"><a href="pengembalian-dark.html" class="nav-link">↺ Pengembalian</a></li>
+                <li class="nav-item"><a href="laporan-harian-dark.html" class="nav-link">▲ Laporan Harian</a></li>
+                <li class="nav-item"><a href="laporan-siswa-dark.html" class="nav-link active">◎ Laporan Siswa</a></li>
+                <li class="nav-item"><a href="data-siswa-dark.html" class="nav-link">⚙ Data Siswa</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Laporan Perilaku Peminjaman Siswa</h1>
+                <p>Analisis frekuensi dan pola peminjaman HP per siswa</p>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-row">
+                    <select>
+                        <option>Semua Kelas</option>
+                        <option>X-A</option>
+                        <option>XI-B</option>
+                        <option>XII-C</option>
+                    </select>
+                    <select>
+                        <option>Semua Data</option>
+                        <option>Bulan Ini</option>
+                        <option>3 Bulan</option>
+                        <option>Tahun Ini</option>
+                    </select>
+                    <select>
+                        <option>Frekuensi (Terbanyak)</option>
+                        <option>Nama (A-Z)</option>
+                        <option>Jam Puncak</option>
+                    </select>
+                    <button class="btn-primary">Export</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Siswa</th>
+                            <th style="text-align: center;">Kelas</th>
+                            <th style="text-align: center;">Total Pinjam</th>
+                            <th style="text-align: center;">Bulan Ini</th>
+                            <th>Alasan Terbanyak</th>
+                            <th style="text-align: center;">Jam Puncak</th>
+                            <th style="text-align: center;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color: var(--text-primary);">Ahmad Ridho</td>
+                            <td style="text-align: center;">XI-A</td>
+                            <td style="text-align: center; color: var(--text-primary);">28</td>
+                            <td style="text-align: center;">6</td>
+                            <td>Tugas (14x)</td>
+                            <td style="text-align: center;">09:30-10:00</td>
+                            <td style="text-align: center;"><button class="btn">Detail</button></td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-primary);">Budi Santoso</td>
+                            <td style="text-align: center;">X-B</td>
+                            <td style="text-align: center; color: var(--text-primary);">22</td>
+                            <td style="text-align: center;">5</td>
+                            <td>Emergency (8x)</td>
+                            <td style="text-align: center;">08:00-09:00</td>
+                            <td style="text-align: center;"><button class="btn">Detail</button></td>
+                        </tr>
+                        <tr class="highlight">
+                            <td style="color: var(--text-primary);">Citra Dewi</td>
+                            <td style="text-align: center;">XII-C</td>
+                            <td style="text-align: center; color: var(--text-primary);">45</td>
+                            <td style="text-align: center; color: var(--warning-color); font-weight: 600;">12 ⚠</td>
+                            <td>Main (18x)</td>
+                            <td style="text-align: center;">10:00-11:00</td>
+                            <td style="text-align: center;"><button class="btn">Detail</button></td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-primary);">Dina Sari</td>
+                            <td style="text-align: center;">XI-A</td>
+                            <td style="text-align: center; color: var(--text-primary);">18</td>
+                            <td style="text-align: center;">3</td>
+                            <td>Tugas (12x)</td>
+                            <td style="text-align: center;">11:00-12:00</td>
+                            <td style="text-align: center;"><button class="btn">Detail</button></td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-primary);">Eka Putri</td>
+                            <td style="text-align: center;">X-B</td>
+                            <td style="text-align: center; color: var(--text-primary);">31</td>
+                            <td style="text-align: center;">7</td>
+                            <td>Tugas (16x)</td>
+                            <td style="text-align: center;">09:00-10:00</td>
+                            <td style="text-align: center;"><button class="btn">Detail</button></td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-primary);">Fahmi Hidayat</td>
+                            <td style="text-align: center;">XI-A</td>
+                            <td style="text-align: center; color: var(--text-primary);">24</td>
+                            <td style="text-align: center;">5</td>
+                            <td>Tugas (13x)</td>
+                            <td style="text-align: center;">10:30-11:00</td>
+                            <td style="text-align: center;"><button class="btn">Detail</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPEN HP - HP Dipinjam</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">📱</div>
+            <div>
+                <div class="sidebar-title">SIMPEN HP</div>
+                <div class="sidebar-subtitle">Manajemen Peminjaman</div>
+            </div>
+        </div>
+
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index-dark.html" class="nav-link">
+                        📊 Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="peminjaman-dark.html" class="nav-link">
+                        ➕ Peminjaman
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="daftar-dipinjam-dark.html" class="nav-link active">
+                        📱 HP Dipinjam
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="pengembalian-dark.html" class="nav-link">
+                        ↩️ Pengembalian
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="laporan-harian-dark.html" class="nav-link">
+                        📈 Laporan Harian
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="laporan-siswa-dark.html" class="nav-link">
+                        👥 Laporan Siswa
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="data-siswa-dark.html" class="nav-link">
+                        ⚙️ Data Siswa
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>HP Sedang Dipinjam</h1>
+                <p>Total 12 HP dipinjam saat ini • Real-time tracking</p>
+            </div>
+
+            <!-- Filter -->
+            <div class="filter-card">
+                <div class="filter-row">
+                    <input type="text" placeholder="Cari nama siswa...">
+                    <select>
+                        <option>Semua Kelas</option>
+                        <option>X-A</option>
+                        <option>XI-B</option>
+                        <option>XII-C</option>
+                    </select>
+                    <select>
+                        <option>Semua Status</option>
+                        <option>Tepat Waktu</option>
+                        <option>Akan Terlambat</option>
+                        <option>Lama Dipinjam</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Siswa</th>
+                            <th>Kelas</th>
+                            <th>Jam Pinjam</th>
+                            <th>Durasi</th>
+                            <th>Alasan</th>
+                            <th style="text-align: center;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ahmad Ridho</td>
+                            <td>XI-A</td>
+                            <td>09:30</td>
+                            <td class="duration-normal">45 menit</td>
+                            <td>Tugas</td>
+                            <td style="text-align: center;">
+                                <button class="btn">Kembalikan</button>
+                            </td>
+                        </tr>
+                        <tr class="warning">
+                            <td>Budi Santoso</td>
+                            <td>X-B</td>
+                            <td>08:15</td>
+                            <td class="duration-warning">1 jam 15 menit ⚠️</td>
+                            <td>Emergency</td>
+                            <td style="text-align: center;">
+                                <button class="btn">Kembalikan</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Citra Dewi</td>
+                            <td>XII-C</td>
+                            <td>09:45</td>
+                            <td class="duration-normal">30 menit</td>
+                            <td>Main</td>
+                            <td style="text-align: center;">
+                                <button class="btn">Kembalikan</button>
+                            </td>
+                        </tr>
+                        <tr class="danger">
+                            <td>Dina Sari</td>
+                            <td>XI-A</td>
+                            <td>08:00</td>
+                            <td class="duration-danger">2 jam 30 menit ❌</td>
+                            <td>Tugas</td>
+                            <td style="text-align: center;">
+                                <button class="btn">Kembalikan</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Eka Putri</td>
+                            <td>X-B</td>
+                            <td>09:00</td>
+                            <td class="duration-normal">1 jam</td>
+                            <td>Tugas</td>
+                            <td style="text-align: center;">
+                                <button class="btn">Kembalikan</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Fahmi Hidayat</td>
+                            <td>XI-A</td>
+                            <td>10:15</td>
+                            <td class="duration-normal">20 menit</td>
+                            <td>Main</td>
+                            <td style="text-align: center;">
+                                <button class="btn">Kembalikan</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Gina Pratama</td>
+                            <td>X-C</td>
+                            <td>09:20</td>
+                            <td class="duration-normal">50 menit</td>
+                            <td>Tugas</td>
+                            <td style="text-align: center;">
+                                <button class="btn">Kembalikan</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Hendra Wijaya</td>
+                            <td>XII-A</td>
+                            <td>08:45</td>
+                            <td class="duration-normal">1 jam 35 menit</td>
+                            <td>Emergency</td>
+                            <td style="text-align: center;">
+                                <button class="btn">Kembalikan</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Indah Kusuma</td>
+                            <td>XI-B</td>
+                            <td>10:00</td>
+                            <td class="duration-normal">40 menit</td>
+                            <td>Tugas</td>
+                            <td style="text-align: center;">
+                                <button class="btn">Kembalikan</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Joko Sutrisno</td>
+                            <td>X-A</td>
+                            <td>09:10</td>
+                            <td class="duration-normal">1 jam 10 menit</td>
+                            <td>Main</td>
+                            <td style="text-align: center;">
+                                <button class="btn">Kembalikan</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Karina Siska</td>
+                            <td>XI-C</td>
+                            <td>10:30</td>
+                            <td class="duration-normal">15 menit</td>
+                            <td>Tugas</td>
+                            <td style="text-align: center;">
+                                <button class="btn">Kembalikan</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Lala Maulida</td>
+                            <td>XII-B</td>
+                            <td>08:30</td>
+                            <td class="duration-normal">2 jam</td>
+                            <td>Emergency</td>
+                            <td style="text-align: center;">
+                                <button class="btn">Kembalikan</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Legend -->
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-box legend-yellow"></div>
+                    <span>Akan terlambat (>1 jam)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box legend-red"></div>
+                    <span>Lama dipinjam (>2 jam)</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script src="js/daftar-dipinjam-dark.js"></script>
+</body>
+</html>

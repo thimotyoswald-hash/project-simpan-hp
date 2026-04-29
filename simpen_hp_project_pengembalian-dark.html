@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPEN HP - Form Pengembalian</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">◆</div>
+            <div>
+                <div class="sidebar-title">SIMPEN HP</div>
+                <div class="sidebar-subtitle">Manajemen Peminjaman</div>
+            </div>
+        </div>
+
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index-dark.html" class="nav-link">◈ Dashboard</a></li>
+                <li class="nav-item"><a href="peminjaman-dark.html" class="nav-link">⊕ Peminjaman</a></li>
+                <li class="nav-item"><a href="daftar-dipinjam-dark.html" class="nav-link">◉ HP Dipinjam</a></li>
+                <li class="nav-item"><a href="pengembalian-dark.html" class="nav-link active">↺ Pengembalian</a></li>
+                <li class="nav-item"><a href="laporan-harian-dark.html" class="nav-link">▲ Laporan Harian</a></li>
+                <li class="nav-item"><a href="laporan-siswa-dark.html" class="nav-link">◎ Laporan Siswa</a></li>
+                <li class="nav-item"><a href="data-siswa-dark.html" class="nav-link">⚙ Data Siswa</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Form Pengembalian HP</h1>
+                <p>Catat pengembalian HP dan kondisi saat dikembalikan</p>
+            </div>
+
+            <div class="form-container">
+                <form id="pengembalianForm">
+                    <!-- Section 1: Cari Peminjaman -->
+                    <div class="form-section">
+                        <div class="form-group required">
+                            <label for="peminjaman">Cari Peminjaman</label>
+                            <select id="peminjaman" required onchange="loadDetailPeminjaman()">
+                                <option value="">-- Pilih Peminjaman --</option>
+                                <option value="1">Ahmad Ridho - 09:30 (Tugas)</option>
+                                <option value="2">Budi Santoso - 08:15 (Emergency)</option>
+                                <option value="3">Citra Dewi - 09:45 (Main)</option>
+                                <option value="4">Dina Sari - 08:00 (Tugas)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Detail Peminjaman -->
+                    <div class="form-section" id="detailCard" style="display: none;">
+                        <div class="detail-card">
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <label>Siswa</label>
+                                    <value id="detailSiswa"></value>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Kelas</label>
+                                    <value id="detailKelas"></value>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Jam Pinjam</label>
+                                    <value id="detailJamPinjam"></value>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Alasan</label>
+                                    <value id="detailAlasan"></value>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Kondisi Pengembalian -->
+                    <div class="form-section">
+                        <div class="form-group required">
+                            <label>Kondisi HP Saat Dikembalikan</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="kondisi" value="baik" checked onchange="handleKondisiChange()"> Baik</label>
+                                <label><input type="radio" name="kondisi" value="sedikit_rusak" onchange="handleKondisiChange()"> Sedikit Rusak</label>
+                                <label><input type="radio" name="kondisi" value="rusak_parah" onchange="handleKondisiChange()"> Rusak Parah</label>
+                                <label><input type="radio" name="kondisi" value="hilang" onchange="handleKondisiChange()"> Hilang</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="detailRusakSection" style="display: none;">
+                            <label for="detailRusak">Detail Kerusakan</label>
+                            <textarea id="detailRusak" placeholder="Jelaskan detail kerusakan..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Jam Kembali -->
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label for="jamKembali">Jam Kembali</label>
+                            <input type="time" id="jamKembali" name="jamKembali">
+                            <p style="font-size: 12px; color: var(--text-secondary); margin-top: 8px;">Durasi peminjaman: <strong id="durasi">45 menit</strong></p>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Summary -->
+                    <div class="form-section">
+                        <div class="summary-box">
+                            <p>Summary Pengembalian</p>
+                            <div class="summary-grid">
+                                <div class="summary-item">
+                                    <span>Durasi Peminjaman</span>
+                                    <strong><span id="summaryDurasi">45 menit</span> (Tepat Waktu)</strong>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Status Pengembalian</span>
+                                    <strong style="color: var(--success-color);">Siap Selesai</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="reset" class="btn">Batal</button>
+                        <button type="submit" class="btn btn-primary">Selesai Pengembalian</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script src="js/pengembalian.js"></script>
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPEN HP - Laporan Harian</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0f1419;
+            --bg-secondary: #1a1f2e;
+            --bg-tertiary: #252d3d;
+            --text-primary: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --text-tertiary: #6b7280;
+            --border-color: #374151;
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .sidebar-logo {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .sidebar-subtitle {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .nav-link:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 32px 0;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .filter-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .filter-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 12px;
+        }
+
+        .filter-row input,
+        .filter-row button {
+            padding: 10px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-row input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .filter-row button:hover {
+            background: var(--bg-secondary);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .table-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        thead {
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .export-section {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-primary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .filter-row {
+                grid-template-columns: 1fr;
+            }
+
+            .table {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">◆</div>
+            <div>
+                <div class="sidebar-title">SIMPEN HP</div>
+                <div class="sidebar-subtitle">Manajemen Peminjaman</div>
+            </div>
+        </div>
+
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index-dark.html" class="nav-link">◈ Dashboard</a></li>
+                <li class="nav-item"><a href="peminjaman-dark.html" class="nav-link">⊕ Peminjaman</a></li>
+                <li class="nav-item"><a href="daftar-dipinjam-dark.html" class="nav-link">◉ HP Dipinjam</a></li>
+                <li class="nav-item"><a href="pengembalian-dark.html" class="nav-link">↺ Pengembalian</a></li>
+                <li class="nav-item"><a href="laporan-harian-dark.html" class="nav-link active">▲ Laporan Harian</a></li>
+                <li class="nav-item"><a href="laporan-siswa-dark.html" class="nav-link">◎ Laporan Siswa</a></li>
+                <li class="nav-item"><a href="data-siswa-dark.html" class="nav-link">⚙ Data Siswa</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Laporan Harian</h1>
+                <p>Data peminjaman tanggal hari ini</p>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-row">
+                    <input type="date" value="2024-01-15">
+                    <button>Refresh</button>
+                    <button class="btn-primary">Export PDF</button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Peminjaman</div>
+                    <div class="stat-value">28</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">HP Dikembalikan</div>
+                    <div class="stat-value">26</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Alasan Terbanyak</div>
+                    <div class="stat-value" style="font-size: 16px;">Tugas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Durasi Rata-rata</div>
+                    <div class="stat-value" style="font-size: 20px;">52 menit</div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Siswa</th>
+                            <th>Kelas</th>
+                            <th style="text-align: center;">Jam Pinjam</th>
+                            <th style="text-align: center;">Jam Kembali</th>
+                            <th style="text-align: center;">Durasi</th>
+                            <th>Alasan</th>
+                            <th>Kondisi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color: var(--text-primary);">Ahmad Ridho</td>
+                            <td>XI-A</td>
+                            <td style="text-align: center;">09:30</td>
+                            <td style="text-align: center;">10:15</td>
+                            <td style="text-align: center;">45 min</td>
+                            <td>Tugas</td>
+                            <td>Baik</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-primary);">Budi Santoso</td>
+                            <td>X-B</td>
+                            <td style="text-align: center;">08:15</td>
+                            <td style="text-align: center;">09:05</td>
+                            <td style="text-align: center;">50 min</td>
+                            <td>Emergency</td>
+                            <td>Baik</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-primary);">Citra Dewi</td>
+                            <td>XII-C</td>
+                            <td style="text-align: center;">10:45</td>
+                            <td style="text-align: center;">11:20</td>
+                            <td style="text-align: center;">35 min</td>
+                            <td>Main</td>
+                            <td>Baik</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-primary);">Dina Sari</td>
+                            <td>XI-A</td>
+                            <td style="text-align: center;">11:00</td>
+                            <td style="text-align: center;">14:30</td>
+                            <td style="text-align: center;">3 jam 30 min</td>
+                            <td>Tugas</td>
+                            <td>Rusak Ringan</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-primary);">Eka Putri</td>
+                            <td>X-B</td>
+                            <td style="text-align: center;">09:00</td>
+                            <td style="text-align: center;">10:10</td>
+                            <td style="text-align: center;">1 jam 10 min</td>
+                            <td>Tugas</td>
+                            <td>Baik</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-primary);">Fahmi Hidayat</td>
+                            <td>XI-A</td>
+                            <td style="text-align: center;">10:15</td>
+                            <td style="text-align: center;">10:35</td>
+                            <td style="text-align: center;">20 min</td>
+                            <td>Main</td>
+                            <td>Baik</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="export-section">
+                <button class="btn">Export Excel</button>
+                <button class="btn">Print</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

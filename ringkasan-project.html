@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ringkasan Project SIMPEN HP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0f1419;
+            --bg-secondary: #1a1f2e;
+            --bg-tertiary: #252d3d;
+            --text-primary: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --text-tertiary: #6b7280;
+            --border-color: #374151;
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+            padding: 40px 0;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+
+        section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        section h2 {
+            font-size: 24px;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        section h3 {
+            font-size: 18px;
+            color: var(--text-primary);
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        .desc-section {
+            background: var(--bg-tertiary);
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .desc-section p {
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+        }
+
+        .desc-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            padding-left: 24px;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .feature-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h4 {
+            color: var(--accent-color);
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .developer-section {
+            background: var(--bg-tertiary);
+            border-left: 4px solid var(--accent-color);
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .developer-section h4 {
+            color: var(--accent-color);
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+
+        .dev-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .dev-box {
+            background: var(--bg-secondary);
+            padding: 16px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        .dev-box h5 {
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .dev-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .dev-box li {
+            padding: 6px 0;
+            color: var(--text-secondary);
+            font-size: 13px;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .dev-box li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: var(--border-color);
+        }
+
+        th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 12px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        code {
+            background: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--accent-color);
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        pre {
+            background: var(--bg-tertiary);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        pre code {
+            color: var(--text-primary);
+            background: none;
+            padding: 0;
+        }
+
+        .summary-box {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-box h5 {
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .summary-box p {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .summary-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        a.btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        a.btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success-color);
+            color: var(--success-color);
+        }
+
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 32px 0;
+            margin-top: 40px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .back-to-top {
+            display: inline-block;
+            margin-top: 16px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            section {
+                padding: 24px;
+            }
+
+            .dev-content {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1>📱 SIMPEN HP</h1>
+            <p>Sistem Informasi Manajemen Peminjaman HP - Ringkasan Project</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Section 1: Nama Project -->
+        <section>
+            <h2>1. NAMA PROJECT</h2>
+            <div class="desc-section">
+                <h3 style="margin-top: 0;">SIMPEN HP</h3>
+                <p><strong>Sistem Informasi Manajemen Peminjaman HP</strong></p>
+            </div>
+        </section>
+
+        <!-- Section 2: Deskripsi -->
+        <section>
+            <h2>2. DESKRIPSI PROJECT</h2>
+            <div class="desc-section">
+                <p>
+                    SIMPEN HP adalah aplikasi web yang dirancang untuk mengelola peminjaman HP siswa di sekolah. 
+                    Sistem ini memudahkan guru piket untuk mencatat siswa yang meminjam HP mereka, memantau durasi 
+                    peminjaman, mencatat pengembalian, dan menganalisis pola peminjaman siswa melalui laporan yang komprehensif.
+                </p>
+            </div>
+
+            <h3>Karakteristik Utama:</h3>
+            <ul class="feature-list">
+                <li>Tanpa sistem login - akses langsung ke dashboard</li>
+                <li>HP yang dipinjam adalah milik siswa sendiri</li>
+                <li>Tracking real-time durasi peminjaman</li>
+                <li>Laporan dan analisis perilaku peminjaman</li>
+                <li>Design dark mode yang clean dan modern</li>
+            </ul>
+        </section>
+
+        <!-- Section 3: Fitur -->
+        <section>
+            <h2>3. FITUR / HALAMAN DI PROJECT</h2>
+
+            <div class="feature-card">
+                <h4>A. Dashboard (index-dark.html)</h4>
+                <p>
+                    Metric cards: HP dipinjam, peminjaman hari ini, total siswa, HP lama • Quick access menu ke 3 fitur utama • 
+                    Navigation sidebar dengan 7 menu
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h4>B. Peminjaman HP (peminjaman-dark.html)</h4>
+                <p>
+                    Form input: Pilih siswa, jam pinjam, alasan peminjaman, catatan • Auto-fill kelas berdasarkan siswa • 
+                    Validasi form dan success notification • Generate nomor referensi otomatis (LOAN-YYYYMMDD-###)
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h4>C. Daftar HP Dipinjam (daftar-dipinjam-dark.html)</h4>
+                <p>
+                    Tabel real-time list HP yang sedang dipinjam (12 data sample) • Filter by: siswa, kelas, status • 
+                    Search functionality • Durasi auto-calculate dan update setiap menit • Status highlight: normal, warning (>1 jam), 
+                    danger (>2 jam) • Button kembalikan untuk setiap data
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h4>D. Pengembalian HP (pengembalian-dark.html)</h4>
+                <p>
+                    Dropdown search peminjaman aktif • Detail card auto-load dari peminjaman terpilih • Input kondisi HP: Baik, 
+                    Sedikit Rusak, Rusak Parah, Hilang • Conditional field detail kerusakan • Auto-hitung durasi peminjaman • 
+                    Summary pengembalian sebelum submit
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h4>E. Laporan Harian (laporan-harian-dark.html)</h4>
+                <p>
+                    Filter by tanggal • Stat cards: Total peminjaman, HP dikembalikan, alasan terbanyak, durasi rata-rata • 
+                    Tabel detail peminjaman harian (6 data sample) • Export PDF & Excel buttons
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h4>F. Laporan Siswa (laporan-siswa-dark.html)</h4>
+                <p>
+                    Filter: Kelas, Periode, Sort by • Tabel analisis perilaku per siswa (6 data sample) • Highlight row untuk 
+                    siswa dengan frekuensi tinggi • Detail button per siswa • Export functionality
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h4>G. Manajemen Data Siswa (data-siswa-dark.html)</h4>
+                <p>
+                    Button tambah siswa baru • Filter: Search nama/NIS, filter kelas, filter status • Import CSV button • 
+                    Tabel CRUD siswa (8 data sample) • Status badge: Aktif (hijau), Nonaktif (kuning) • 
+                    Pagination (1-8 dari 1,240 siswa)
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 4: Pembagian Developer -->
+        <section>
+            <h2>4. PEMBAGIAN PENGERJAAN 3 DEVELOPER</h2>
+
+            <!-- Developer 1 -->
+            <div class="developer-section">
+                <h4>👨‍💻 DEVELOPER 1: MENU PEMINJAMAN (Fitur Inti)</h4>
+                <div class="dev-content">
+                    <div class="dev-box">
+                        <h5>Tanggung Jawab:</h5>
+                        <ul>
+                            <li>peminjaman-dark.html - Form peminjaman</li>
+                            <li>daftar-dipinjam-dark.html - List HP dipinjam</li>
+                            <li>pengembalian-dark.html - Form pengembalian</li>
+                        </ul>
+                    </div>
+                    <div class="dev-box">
+                        <h5>Backend API:</h5>
+                        <ul>
+                            <li>POST /api/loans</li>
+                            <li>GET /api/loans/active</li>
+                            <li>PUT /api/loans/:id/return</li>
+                            <li>GET /api/students</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="dev-content" style="margin-top: 16px;">
+                    <div class="dev-box">
+                        <h5>Database Diakses:</h5>
+                        <ul>
+                            <li>students (read)</li>
+                            <li>device_loans (create, read, update)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Developer 2 -->
+            <div class="developer-section">
+                <h4>👨‍💻 DEVELOPER 2: MENU LAPORAN (Analisis & Reporting)</h4>
+                <div class="dev-content">
+                    <div class="dev-box">
+                        <h5>Tanggung Jawab:</h5>
+                        <ul>
+                            <li>laporan-harian-dark.html</li>
+                            <li>laporan-siswa-dark.html</li>
+                            <li>Query kompleks & visualisasi</li>
+                            <li>Export PDF & Excel</li>
+                        </ul>
+                    </div>
+                    <div class="dev-box">
+                        <h5>Backend API:</h5>
+                        <ul>
+                            <li>GET /api/reports/daily</li>
+                            <li>GET /api/reports/student-behavior</li>
+                            <li>GET /api/reports/charts</li>
+                            <li>GET /api/loans/history</li>
+                            <li>POST /api/reports/export</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="dev-content" style="margin-top: 16px;">
+                    <div class="dev-box">
+                        <h5>Database Diakses:</h5>
+                        <ul>
+                            <li>device_loans (read dengan JOIN)</li>
+                            <li>students (read untuk data pelengkap)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Developer 3 -->
+            <div class="developer-section">
+                <h4>👨‍💻 DEVELOPER 3: MENU MASTER DATA (Infrastruktur)</h4>
+                <div class="dev-content">
+                    <div class="dev-box">
+                        <h5>Tanggung Jawab:</h5>
+                        <ul>
+                            <li>index-dark.html - Dashboard</li>
+                            <li>data-siswa-dark.html - CRUD Siswa</li>
+                            <li>Shared UI Components</li>
+                            <li>Database setup</li>
+                        </ul>
+                    </div>
+                    <div class="dev-box">
+                        <h5>Backend API:</h5>
+                        <ul>
+                            <li>GET /api/students</li>
+                            <li>POST /api/students</li>
+                            <li>PUT /api/students/:id</li>
+                            <li>DELETE /api/students/:id</li>
+                            <li>POST /api/students/import</li>
+                            <li>GET /api/students/:id/loans</li>
+                            <li>GET /api/dashboard/metrics</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="dev-content" style="margin-top: 16px;">
+                    <div class="dev-box">
+                        <h5>Database Diakses:</h5>
+                        <ul>
+                            <li>students (CRUD + Bulk ops)</li>
+                            <li>device_loans (read untuk stats)</li>
+                        </ul>
+                    </div>
+                    <div class="dev-box">
+                        <h5>Deliverables Tambahan:</h5>
+                        <ul>
+                            <li>Database design & ERD</li>
+                            <li>API documentation</li>
+                            <li>Shared components library</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Database -->
+        <section>
+            <h2>5. STRUKTUR DATABASE</h2>
+
+            <h3>Table: students</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Column</th>
+                        <th>Type</th>
+                        <th>Constraint</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>id</td>
+                        <td>INT</td>
+                        <td>PRIMARY KEY</td>
+                        <td>Auto increment</td>
+                    </tr>
+                    <tr>
+                        <td>nis</td>
+                        <td>VARCHAR</td>
+                        <td>UNIQUE NOT NULL</td>
+                        <td>Nomor Induk Siswa</td>
+                    </tr>
+                    <tr>
+                        <td>nama</td>
+                        <td>VARCHAR</td>
+                        <td>NOT NULL</td>
+                        <td>Nama lengkap siswa</td>
+                    </tr>
+                    <tr>
+                        <td>kelas</td>
+                        <td>VARCHAR</td>
+                        <td>NOT NULL</td>
+                        <td>XI-A, X-B, XII-C</td>
+                    </tr>
+                    <tr>
+                        <td>no_hp</td>
+                        <td>VARCHAR</td>
+                        <td>NULL</td>
+                        <td>Nomor HP siswa</td>
+                    </tr>
+                    <tr>
+                        <td>status</td>
+                        <td>ENUM</td>
+                        <td>DEFAULT 'aktif'</td>
+                        <td>aktif / nonaktif</td>
+                    </tr>
+                    <tr>
+                        <td>created</td>
+                        <td>DATETIME</td>
+                        <td>AUTO</td>
+                        <td>Waktu data dibuat</td>
+                    </tr>
+                    <tr>
+                        <td>updated</td>
+                        <td>DATETIME</td>
+                        <td>AUTO</td>
+                        <td>Waktu data diupdate</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Table: device_loans</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Column</th>
+                        <th>Type</th>
+                        <th>Constraint</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>id</td>
+                        <td>INT</td>
+                        <td>PRIMARY KEY</td>
+                        <td>Auto increment</td>
+                    </tr>
+                    <tr>
+                        <td>student_id</td>
+                        <td>INT</td>
+                        <td>FK/NOT NULL</td>
+                        <td>Referensi students</td>
+                    </tr>
+                    <tr>
+                        <td>tanggal_pinjam</td>
+                        <td>DATE</td>
+                        <td>NOT NULL</td>
+                        <td>Tanggal pinjam</td>
+                    </tr>
+                    <tr>
+                        <td>jam_pinjam</td>
+                        <td>TIME</td>
+                        <td>NOT NULL</td>
+                        <td>Jam mulai pinjam</td>
+                    </tr>
+                    <tr>
+                        <td>jam_kembali</td>
+                        <td>TIME</td>
+                        <td>NULL</td>
+                        <td>Jam pengembalian</td>
+                    </tr>
+                    <tr>
+                        <td>alasan</td>
+                        <td>VARCHAR</td>
+                        <td>NOT NULL</td>
+                        <td>Tugas/Emergency/Main</td>
+                    </tr>
+                    <tr>
+                        <td>kondisi_akhir</td>
+                        <td>VARCHAR</td>
+                        <td>NULL</td>
+                        <td>Kondisi dikembali</td>
+                    </tr>
+                    <tr>
+                        <td>status</td>
+                        <td>ENUM</td>
+                        <td>NOT NULL</td>
+                        <td>aktif / selesai</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Relationships</h3>
+            <div class="summary-box">
+                <p><code>students (1) ──── (∞) device_loans</code></p>
+                <p>Satu siswa bisa memiliki banyak record peminjaman HP</p>
+                <p>Setiap peminjaman pasti ada siswa yang terkait</p>
+            </div>
+
+            <h3>Query Contoh untuk Laporan</h3>
+
+            <h4>1. Laporan Harian</h4>
+            <pre><code>SELECT s.nis, s.nama, s.kelas, dl.jam_pinjam, dl.jam_kembali,
+       dl.alasan, dl.kondisi_akhir,
+       TIMEDIFF(dl.jam_kembali, dl.jam_pinjam) as durasi
+FROM device_loans dl
+JOIN students s ON dl.student_id = s.id
+WHERE DATE(dl.tanggal_pinjam) = CURDATE()
+ORDER BY dl.tanggal_pinjam DESC;</code></pre>
+
+            <h4>2. Statistik Siswa</h4>
+            <pre><code>SELECT s.nis, s.nama, s.kelas,
+       COUNT(dl.id) as total_peminjaman,
+       MAX(dl.jam_pinjam) as jam_puncak
+FROM students s
+LEFT JOIN device_loans dl ON s.id = dl.student_id
+WHERE s.status = 'aktif'
+GROUP BY s.id
+ORDER BY COUNT(dl.id) DESC;</code></pre>
+
+            <h4>3. Peminjaman Aktif</h4>
+            <pre><code>SELECT s.nis, s.nama, s.kelas, dl.jam_pinjam,
+       dl.alasan, TIMEDIFF(NOW(), dl.jam_pinjam) as durasi
+FROM device_loans dl
+JOIN students s ON dl.student_id = s.id
+WHERE dl.status = 'aktif'
+ORDER BY dl.jam_pinjam ASC;</code></pre>
+        </section>
+
+        <!-- Section 6: Summary Teknis -->
+        <section>
+            <h2>6. RINGKASAN TEKNIS</h2>
+
+            <h3>Frontend</h3>
+            <ul class="feature-list">
+                <li>HTML5 (7 halaman)</li>
+                <li>CSS3 (Dark Mode dengan CSS Variables)</li>
+                <li>JavaScript Vanilla (Form handling, validation, calculation)</li>
+                <li>Responsive design (Desktop, Tablet, Mobile)</li>
+            </ul>
+
+            <h3>Backend (yang dibutuhkan)</h3>
+            <ul class="feature-list">
+                <li>Framework: Node.js + Express atau Laravel</li>
+                <li>Database: MySQL/PostgreSQL</li>
+                <li>API REST dengan JSON response</li>
+                <li>Authentication: Tidak ada (direct access)</li>
+            </ul>
+
+            <h3>Tools & Technology</h3>
+            <ul class="feature-list">
+                <li>Version Control: Git</li>
+                <li>API Testing: Postman</li>
+                <li>Database: phpMyAdmin atau MySQL Workbench</li>
+                <li>Deployment: Docker / Manual Server</li>
+            </ul>
+
+            <h3>Timeline Estimasi</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Durasi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Database & Backend API</td>
+                        <td>2-3 minggu</td>
+                    </tr>
+                    <tr>
+                        <td>Dev 1 (Peminjaman)</td>
+                        <td>2-3 minggu</td>
+                    </tr>
+                    <tr>
+                        <td>Dev 2 (Laporan)</td>
+                        <td>2-3 minggu</td>
+                    </tr>
+                    <tr>
+                        <td>Dev 3 (Master Data)</td>
+                        <td>1-2 minggu</td>
+                    </tr>
+                    <tr>
+                        <td>Testing & Refinement</td>
+                        <td>1 minggu</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>3-4 bulan</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 7: Deliverables -->
+        <section>
+            <h2>7. DELIVERABLES</h2>
+
+            <div class="badges">
+                <span class="badge badge-success">✓ Frontend: 7 halaman HTML dengan dark mode design</span>
+                <span class="badge badge-success">✓ Database: 2 tables dengan relationship</span>
+                <span class="badge badge-success">✓ API Specification: 15+ endpoints</span>
+                <span class="badge badge-success">✓ Documentation: README & Panduan lengkap</span>
+                <span class="badge badge-success">✓ Package: SIMPEN_HP.zip (23 KB) siap deploy</span>
+            </div>
+        </section>
+
+        <!-- Section 8: Next Steps -->
+        <section>
+            <h2>8. NEXT STEPS</h2>
+            <ul class="feature-list">
+                <li>Developer 1: Mulai develop backend untuk menu Peminjaman</li>
+                <li>Developer 2: Prepare queries untuk laporan</li>
+                <li>Developer 3: Setup database dan deploy frontend</li>
+                <li>Team: Weekly sync untuk koordinasi progress</li>
+            </ul>
+
+            <div class="button-group">
+                <a href="index-dark.html" class="btn">👉 Lihat Demo Frontend</a>
+                <a href="#" class="btn" onclick="window.print()">📥 Download Ringkasan</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>
+                <strong>SIMPEN HP v1.0</strong><br>
+                Status: Ready for Development<br>
+                Last Updated: April 2024<br>
+                <a href="#" class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">↑ Kembali ke Atas</a>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

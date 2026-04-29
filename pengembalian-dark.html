@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPEN HP - Form Pengembalian</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0f1419;
+            --bg-secondary: #1a1f2e;
+            --bg-tertiary: #252d3d;
+            --text-primary: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --text-tertiary: #6b7280;
+            --border-color: #374151;
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .sidebar-logo {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .sidebar-subtitle {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .nav-link:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 32px 0;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .form-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .form-section {
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .form-group.required label::after {
+            content: " *";
+            color: var(--danger-color);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: var(--bg-primary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .detail-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .detail-item label {
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            display: block;
+            font-weight: 500;
+        }
+
+        .detail-item value {
+            color: var(--text-primary);
+            font-weight: 600;
+            display: block;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        .radio-group input[type="radio"] {
+            width: auto;
+            margin: 0;
+            cursor: pointer;
+            accent-color: var(--accent-color);
+        }
+
+        .summary-box {
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .summary-box p {
+            font-size: 13px;
+            margin: 0 0 12px 0;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        .summary-item strong {
+            color: var(--accent-color);
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 32px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-primary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--text-secondary);
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .detail-grid,
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-container {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">◆</div>
+            <div>
+                <div class="sidebar-title">SIMPEN HP</div>
+                <div class="sidebar-subtitle">Manajemen Peminjaman</div>
+            </div>
+        </div>
+
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index-dark.html" class="nav-link">◈ Dashboard</a></li>
+                <li class="nav-item"><a href="peminjaman-dark.html" class="nav-link">⊕ Peminjaman</a></li>
+                <li class="nav-item"><a href="daftar-dipinjam-dark.html" class="nav-link">◉ HP Dipinjam</a></li>
+                <li class="nav-item"><a href="pengembalian-dark.html" class="nav-link active">↺ Pengembalian</a></li>
+                <li class="nav-item"><a href="laporan-harian-dark.html" class="nav-link">▲ Laporan Harian</a></li>
+                <li class="nav-item"><a href="laporan-siswa-dark.html" class="nav-link">◎ Laporan Siswa</a></li>
+                <li class="nav-item"><a href="data-siswa-dark.html" class="nav-link">⚙ Data Siswa</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Form Pengembalian HP</h1>
+                <p>Catat pengembalian HP dan kondisi saat dikembalikan</p>
+            </div>
+
+            <div class="form-container">
+                <form id="pengembalianForm">
+                    <!-- Section 1: Cari Peminjaman -->
+                    <div class="form-section">
+                        <div class="form-group required">
+                            <label for="peminjaman">Cari Peminjaman</label>
+                            <select id="peminjaman" required onchange="loadDetailPeminjaman()">
+                                <option value="">-- Pilih Peminjaman --</option>
+                                <option value="1">Ahmad Ridho - 09:30 (Tugas)</option>
+                                <option value="2">Budi Santoso - 08:15 (Emergency)</option>
+                                <option value="3">Citra Dewi - 09:45 (Main)</option>
+                                <option value="4">Dina Sari - 08:00 (Tugas)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Detail Peminjaman -->
+                    <div class="form-section" id="detailCard" style="display: none;">
+                        <div class="detail-card">
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <label>Siswa</label>
+                                    <value id="detailSiswa"></value>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Kelas</label>
+                                    <value id="detailKelas"></value>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Jam Pinjam</label>
+                                    <value id="detailJamPinjam"></value>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Alasan</label>
+                                    <value id="detailAlasan"></value>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Kondisi Pengembalian -->
+                    <div class="form-section">
+                        <div class="form-group required">
+                            <label>Kondisi HP Saat Dikembalikan</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="kondisi" value="baik" checked onchange="handleKondisiChange()"> Baik</label>
+                                <label><input type="radio" name="kondisi" value="sedikit_rusak" onchange="handleKondisiChange()"> Sedikit Rusak</label>
+                                <label><input type="radio" name="kondisi" value="rusak_parah" onchange="handleKondisiChange()"> Rusak Parah</label>
+                                <label><input type="radio" name="kondisi" value="hilang" onchange="handleKondisiChange()"> Hilang</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="detailRusakSection" style="display: none;">
+                            <label for="detailRusak">Detail Kerusakan</label>
+                            <textarea id="detailRusak" placeholder="Jelaskan detail kerusakan..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Jam Kembali -->
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label for="jamKembali">Jam Kembali</label>
+                            <input type="time" id="jamKembali" name="jamKembali">
+                            <p style="font-size: 12px; color: var(--text-secondary); margin-top: 8px;">Durasi peminjaman: <strong id="durasi">45 menit</strong></p>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Summary -->
+                    <div class="form-section">
+                        <div class="summary-box">
+                            <p>Summary Pengembalian</p>
+                            <div class="summary-grid">
+                                <div class="summary-item">
+                                    <span>Durasi Peminjaman</span>
+                                    <strong><span id="summaryDurasi">45 menit</span> (Tepat Waktu)</strong>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Status Pengembalian</span>
+                                    <strong style="color: var(--success-color);">Siap Selesai</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="reset" class="btn">Batal</button>
+                        <button type="submit" class="btn btn-primary">Selesai Pengembalian</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const dataPeminjaman = {
+            '1': { siswa: 'Ahmad Ridho', kelas: 'XI-A', jamPinjam: '09:30', alasan: 'Tugas Sekolah' },
+            '2': { siswa: 'Budi Santoso', kelas: 'X-B', jamPinjam: '08:15', alasan: 'Emergency' },
+            '3': { siswa: 'Citra Dewi', kelas: 'XII-C', jamPinjam: '09:45', alasan: 'Main' },
+            '4': { siswa: 'Dina Sari', kelas: 'XI-A', jamPinjam: '08:00', alasan: 'Tugas Sekolah' }
+        };
+
+        function loadDetailPeminjaman() {
+            const id = document.getElementById('peminjaman').value;
+            if (id && dataPeminjaman[id]) {
+                const data = dataPeminjaman[id];
+                document.getElementById('detailSiswa').textContent = data.siswa;
+                document.getElementById('detailKelas').textContent = data.kelas;
+                document.getElementById('detailJamPinjam').textContent = data.jamPinjam;
+                document.getElementById('detailAlasan').textContent = data.alasan;
+                document.getElementById('detailCard').style.display = 'block';
+
+                const now = new Date();
+                const jam = String(now.getHours()).padStart(2, '0');
+                const menit = String(now.getMinutes()).padStart(2, '0');
+                document.getElementById('jamKembali').value = jam + ':' + menit;
+                calculateDurasi();
+            }
+        }
+
+        function calculateDurasi() {
+            const id = document.getElementById('peminjaman').value;
+            if (!id) return;
+            
+            const jamPinjamText = dataPeminjaman[id].jamPinjam;
+            const [hP, mP] = jamPinjamText.split(':').map(Number);
+            const jamKembalText = document.getElementById('jamKembali').value;
+            if (!jamKembalText) return;
+            
+            const [hK, mK] = jamKembalText.split(':').map(Number);
+            const pinjam = hP * 60 + mP;
+            const kembali = hK * 60 + mK;
+            const durasi = kembali - pinjam;
+            
+            if (durasi < 0) return;
+            
+            const jam = Math.floor(durasi / 60);
+            const menit = durasi % 60;
+            let text = jam > 0 ? jam + ' jam ' + menit + ' menit' : menit + ' menit';
+            
+            document.getElementById('durasi').textContent = text;
+            document.getElementById('summaryDurasi').textContent = text;
+        }
+
+        function handleKondisiChange() {
+            const kondisi = document.querySelector('input[name="kondisi"]:checked').value;
+            document.getElementById('detailRusakSection').style.display = kondisi !== 'baik' ? 'block' : 'none';
+        }
+
+        document.getElementById('jamKembali').addEventListener('change', calculateDurasi);
+
+        document.getElementById('pengembalianForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('✓ Pengembalian HP berhasil dicatat!');
+            this.reset();
+            document.getElementById('detailCard').style.display = 'none';
+            document.getElementById('detailRusakSection').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPEN HP - Data Siswa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0f1419;
+            --bg-secondary: #1a1f2e;
+            --bg-tertiary: #252d3d;
+            --text-primary: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --text-tertiary: #6b7280;
+            --border-color: #374151;
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 24px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .sidebar-logo {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .sidebar-subtitle {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .nav-link:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 32px 0;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 32px;
+        }
+
+        .page-title h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .btn-add {
+            padding: 12px 24px;
+            background: var(--accent-color);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-add:hover {
+            background: var(--accent-hover);
+        }
+
+        .filter-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .filter-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 12px;
+        }
+
+        .filter-row input,
+        .filter-row select,
+        .filter-row button {
+            padding: 10px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-row input:focus,
+        .filter-row select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .table-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        thead {
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        tbody tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success-color);
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning-color);
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-primary);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 20px;
+        }
+
+        .pagination-buttons {
+            display: flex;
+            gap: 4px;
+        }
+
+        .pagination-buttons button {
+            padding: 6px 10px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-primary);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.3s ease;
+        }
+
+        .pagination-buttons button:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .pagination-buttons button.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .page-header {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .filter-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">◆</div>
+            <div>
+                <div class="sidebar-title">SIMPEN HP</div>
+                <div class="sidebar-subtitle">Manajemen Peminjaman</div>
+            </div>
+        </div>
+
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index-dark.html" class="nav-link">◈ Dashboard</a></li>
+                <li class="nav-item"><a href="peminjaman-dark.html" class="nav-link">⊕ Peminjaman</a></li>
+                <li class="nav-item"><a href="daftar-dipinjam-dark.html" class="nav-link">◉ HP Dipinjam</a></li>
+                <li class="nav-item"><a href="pengembalian-dark.html" class="nav-link">↺ Pengembalian</a></li>
+                <li class="nav-item"><a href="laporan-harian-dark.html" class="nav-link">▲ Laporan Harian</a></li>
+                <li class="nav-item"><a href="laporan-siswa-dark.html" class="nav-link">◎ Laporan Siswa</a></li>
+                <li class="nav-item"><a href="data-siswa-dark.html" class="nav-link active">⚙ Data Siswa</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>Manajemen Data Siswa</h1>
+                    <p>Total 1,240 siswa aktif</p>
+                </div>
+                <button class="btn-add">⊕ Tambah Siswa</button>
+            </div>
+
+            <div class="filter-card">
+                <div class="filter-row">
+                    <input type="text" placeholder="Cari nama atau NIS siswa...">
+                    <select>
+                        <option>Semua Kelas</option>
+                        <option>X-A</option>
+                        <option>XI-B</option>
+                        <option>XII-C</option>
+                    </select>
+                    <select>
+                        <option>Semua Status</option>
+                        <option>Aktif</option>
+                        <option>Nonaktif</option>
+                    </select>
+                    <button>Import CSV</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>NIS</th>
+                            <th>Nama Siswa</th>
+                            <th style="text-align: center;">Kelas</th>
+                            <th style="text-align: center;">No HP</th>
+                            <th style="text-align: center;">Total Pinjam</th>
+                            <th style="text-align: center;">Status</th>
+                            <th style="text-align: center;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>20220001</td>
+                            <td style="color: var(--text-primary);">Ahmad Ridho</td>
+                            <td style="text-align: center;">XI-A</td>
+                            <td style="text-align: center;">081234567890</td>
+                            <td style="text-align: center; color: var(--text-primary);">28</td>
+                            <td style="text-align: center;"><span class="badge badge-success">Aktif</span></td>
+                            <td style="text-align: center;"><button class="btn" style="margin-right: 4px;">Edit</button><button class="btn">Detail</button></td>
+                        </tr>
+                        <tr>
+                            <td>20220002</td>
+                            <td style="color: var(--text-primary);">Budi Santoso</td>
+                            <td style="text-align: center;">X-B</td>
+                            <td style="text-align: center;">089876543210</td>
+                            <td style="text-align: center; color: var(--text-primary);">22</td>
+                            <td style="text-align: center;"><span class="badge badge-success">Aktif</span></td>
+                            <td style="text-align: center;"><button class="btn" style="margin-right: 4px;">Edit</button><button class="btn">Detail</button></td>
+                        </tr>
+                        <tr>
+                            <td>20220003</td>
+                            <td style="color: var(--text-primary);">Citra Dewi</td>
+                            <td style="text-align: center;">XII-C</td>
+                            <td style="text-align: center;">082345678901</td>
+                            <td style="text-align: center; color: var(--text-primary);">45</td>
+                            <td style="text-align: center;"><span class="badge badge-success">Aktif</span></td>
+                            <td style="text-align: center;"><button class="btn" style="margin-right: 4px;">Edit</button><button class="btn">Detail</button></td>
+                        </tr>
+                        <tr>
+                            <td>20210045</td>
+                            <td style="color: var(--text-primary);">Dina Sari</td>
+                            <td style="text-align: center;">XI-A</td>
+                            <td style="text-align: center;">085432109876</td>
+                            <td style="text-align: center; color: var(--text-primary);">18</td>
+                            <td style="text-align: center;"><span class="badge badge-warning">Nonaktif</span></td>
+                            <td style="text-align: center;"><button class="btn" style="margin-right: 4px;">Edit</button><button class="btn">Detail</button></td>
+                        </tr>
+                        <tr>
+                            <td>20220004</td>
+                            <td style="color: var(--text-primary);">Eka Putri</td>
+                            <td style="text-align: center;">X-B</td>
+                            <td style="text-align: center;">088765432109</td>
+                            <td style="text-align: center; color: var(--text-primary);">31</td>
+                            <td style="text-align: center;"><span class="badge badge-success">Aktif</span></td>
+                            <td style="text-align: center;"><button class="btn" style="margin-right: 4px;">Edit</button><button class="btn">Detail</button></td>
+                        </tr>
+                        <tr>
+                            <td>20220005</td>
+                            <td style="color: var(--text-primary);">Fahmi Hidayat</td>
+                            <td style="text-align: center;">XI-A</td>
+                            <td style="text-align: center;">087654321098</td>
+                            <td style="text-align: center; color: var(--text-primary);">24</td>
+                            <td style="text-align: center;"><span class="badge badge-success">Aktif</span></td>
+                            <td style="text-align: center;"><button class="btn" style="margin-right: 4px;">Edit</button><button class="btn">Detail</button></td>
+                        </tr>
+                        <tr>
+                            <td>20220006</td>
+                            <td style="color: var(--text-primary);">Gina Pratama</td>
+                            <td style="text-align: center;">X-C</td>
+                            <td style="text-align: center;">086543210987</td>
+                            <td style="text-align: center; color: var(--text-primary);">19</td>
+                            <td style="text-align: center;"><span class="badge badge-success">Aktif</span></td>
+                            <td style="text-align: center;"><button class="btn" style="margin-right: 4px;">Edit</button><button class="btn">Detail</button></td>
+                        </tr>
+                        <tr>
+                            <td>20220007</td>
+                            <td style="color: var(--text-primary);">Hendra Wijaya</td>
+                            <td style="text-align: center;">XII-A</td>
+                            <td style="text-align: center;">085432109876</td>
+                            <td style="text-align: center; color: var(--text-primary);">16</td>
+                            <td style="text-align: center;"><span class="badge badge-success">Aktif</span></td>
+                            <td style="text-align: center;"><button class="btn" style="margin-right: 4px;">Edit</button><button class="btn">Detail</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <p>Menampilkan 1-8 dari 1,240 siswa</p>
+                <div class="pagination-buttons">
+                    <button>← Prev</button>
+                    <button class="active">1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>Next →</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
